@@ -10,7 +10,7 @@ module Users
       render json: { user: user_payload(resource) }, status: :ok
     end
 
-    def respond_to_on_destroy
+    def respond_to_on_destroy(*)
       if current_user
         render json: { message: "Signed out" }, status: :ok
       else

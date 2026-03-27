@@ -6,6 +6,10 @@ module Users
 
     private
 
+    def sign_up(*)
+
+    end
+
     def respond_with(resource, _opts = {})
       if resource.persisted?
         render json: { user: user_payload(resource) }, status: :created
