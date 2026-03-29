@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
 class ItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_item, only: %i[show update destroy stock]
+  before_action :set_item, only: %i[show update destroy]
 
   def index
     render json: Item.order(:created_at)
@@ -27,10 +25,6 @@ class ItemsController < ApplicationController
     head :no_content
   end
 
-  def stock
-    render json: { item_id: @item.id, quantity: @item.stock_level.quantity }
-  end
-
   private
 
   def set_item
@@ -38,6 +32,7 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:sku, :name, :description, :unit)
+    params.require(:item)
+          .permit(:sku, :name, :description, :unit, :quantity)
   end
 end

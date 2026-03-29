@@ -17,6 +17,4 @@ Rails.application.routes.draw do
       get :stock
     end
   end
-
-  resources :stock_movements, only: %i[index create]
 end
