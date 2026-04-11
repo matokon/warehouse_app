@@ -18,9 +18,9 @@ export default function HomeScreen() {
                   borderRadius: 30,
                   width: 350,
                   alignItems: "center" }}
-        onPress={() => router.push("/login")}
+        onPress={() => router.push("/signup")}
       >
-        <Text style={{ fontSize: 18 }}>Log in</Text>
+        <Text style={{ fontSize: 18 }}>Sign up</Text>
     </Pressable>
 
     <Pressable
@@ -32,7 +32,7 @@ export default function HomeScreen() {
                   alignItems: "center" }}
         onPress={() => router.push("/signin")}
       >
-        <Text style={{ fontSize: 18, color: 'white' }}>Sign in</Text>
+        <Text style={{ fontSize: 18, color: 'white' }}>Log in</Text>
     </Pressable>
   </View>
   );
