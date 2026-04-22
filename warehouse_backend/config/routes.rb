@@ -12,9 +12,5 @@ Rails.application.routes.draw do
                sessions: "users/sessions"
              }
 
-  resources :items do
-    member do
-      get :stock
-    end
-  end
+  resources :items
 end
