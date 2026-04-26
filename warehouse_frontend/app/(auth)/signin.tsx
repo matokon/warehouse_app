@@ -33,6 +33,7 @@ export default function Signin() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20, backgroundColor: "black" }}>
+      <Text>Welcome back</Text>
       <TextInput
         placeholder="Enter your email"
         value={email}

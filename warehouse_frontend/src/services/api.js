@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
 const api = axios.create({
-    baseURL: 'http://192.168.0.235:3000',
+    baseURL: 'http://192.168.0.47:3000',
     timeout: 10000,
 });
 

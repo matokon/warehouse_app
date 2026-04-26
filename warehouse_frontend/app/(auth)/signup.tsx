@@ -11,12 +11,12 @@ export default function Signup() {
 
   const handleSignUp = async () => {
     if (!email || !password || !confirmPassword) {
-      Alert.alert('Błąd', 'Fill in all fields');
+      Alert.alert('Error', 'Fill in all fields');
       return;
     }
     
     if (password !== confirmPassword) {
-      Alert.alert('Błąd', 'Passwords do not match');
+      Alert.alert('Error', 'Passwords do not match');
       return;
     }
     
@@ -29,12 +29,12 @@ export default function Signup() {
           password_confirmation: confirmPassword
         }
       });
-      console.log("Zarejestrowano:", response.data);
-      Alert.alert("Sukces", "Account created successfully!");
+      console.log("Registered:", response.data);
+      Alert.alert("Success", "Account created successfully!");
       router.replace("/signin");
     } catch (error: any) {
-      console.error("Błąd rejestracji:", error.response?.data);
-      Alert.alert("Błąd", error.response?.data?.errors?.email?.[0] || "Registration failed");
+      console.error("Registration error:", error.response?.status, error.response?.data);
+      Alert.alert("Error", error.response?.data?.errors?.[0] || "Registration failed");
     } finally {
       setLoading(false);
     }

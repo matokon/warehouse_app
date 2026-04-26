@@ -20,7 +20,7 @@ export default function RootLayout() {
       if (token) {
         router.replace('/(tabs)/home');
       } else {
-        router.replace('/(auth)/signin');
+        router.replace('/(auth)/welcome');
       }
     };
 
@@ -32,9 +32,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
