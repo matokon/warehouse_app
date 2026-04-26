@@ -18,7 +18,7 @@ export default function RootLayout() {
     const checkToken = async () => {
       const token = await SecureStore.getItemAsync('jwt_token');
       if (token) {
-        router.replace('/(tabs)/home');
+        router.replace('/(tabs)/inventory');
       } else {
         router.replace('/(auth)/welcome');
       }
