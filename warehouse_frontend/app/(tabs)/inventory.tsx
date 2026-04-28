@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 
 export default function Inventory() {
-  const [items, setItems] = useState<{id: number, name: string}[]>([]);
+  const [items, setItems] = useState<{id: number, name: string, quantity: number, unit: string}[]>([]);
   const [input, setInput] = useState("");
 
   useEffect(() => {
@@ -38,14 +38,43 @@ export default function Inventory() {
       />
       <IconSymbol size={18} name="line.3.horizontal.decrease" color="#888" />
       </View>
+
+      <View style={{ flexDirection: "row", gap: 8, marginVertical: 12 }}>
+        {[
+          { label: "ALL", active: true },
+          { label: "OUT" },
+          { label: "Strain Guages" },
+          { label: "TODO LOGIC" },
+        ].map((filter) => (
+          <View
+            key={filter.label}
+            style={{
+              backgroundColor: filter.active ? "#0d9488" : "#2a2a2a",
+              paddingHorizontal: 12,
+              paddingVertical: 6,
+              borderRadius: 20,
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 13 }}>{filter.label}</Text>
+          </View>
+        ))}
+      </View>
+        <Text style={{ color: "#5a5a60", fontSize: 12, marginTop: 10  }}>ALL ITEMS</Text>
+      <View style={{ flexDirection: "row" }}>
       <FlatList
-        style={{ flex: 1, marginTop: 20 }}
+        style={{ flex: 1, marginTop: 10 }}
         data={filteredItems}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <Text style={{ color: "white" }}>{item.name}</Text>
+          <View style={{ flexDirection: "row", backgroundColor: "#141416", borderWidth: 1, borderColor: "#1f1f24", paddingHorizontal: 14, height: 44, borderRadius: 14, marginVertical: 3 }}>
+            <IconSymbol size={18} name="shippingbox" color="#888" />
+            <Text style={{ color: "white" }}>{item.name} - {item.unit} - {item.quantity}</Text>
+          </View>
+
+
         )}
       />
+      </View>
     </SafeAreaView>
   );
 }
