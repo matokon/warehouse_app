@@ -65,14 +65,35 @@ export default function Inventory() {
         style={{ flex: 1, marginTop: 10 }}
         data={filteredItems}
         keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={{ flexDirection: "row", backgroundColor: "#141416", borderWidth: 1, borderColor: "#1f1f24", paddingHorizontal: 14, height: 44, borderRadius: 14, marginVertical: 3 }}>
-            <IconSymbol size={18} name="shippingbox" color="#888" />
-            <Text style={{ color: "white" }}>{item.name} - {item.unit} - {item.quantity}</Text>
+        renderItem={({ item }) => {
+          const status = item.quantity === 0
+            ? { label: "OUT", color: "#ef4444", bg: "#2a1010" }
+            : item.quantity < 10
+            ? { label: "LOW", color: "#f59e0b", bg: "#2a1f00" }
+            : { label: "IN STOCK", color: "#0d9488", bg: "#0a1f1e" }
+          return (
+          <View style={{ height: 81.5, flexDirection: "row", alignItems: "center", backgroundColor: "#141416", borderWidth: 1, borderColor: "#1f1f24", paddingHorizontal: 14, borderRadius: 14, marginVertical: 3 }}>
+            <View style={{ width: 44, height: 44, backgroundColor: "#1e1e22", borderRadius: 10, overflow: "hidden", alignItems: "center", justifyContent: "center" }}>
+              <IconSymbol size={20} name="shippingbox" color="#888" />
+            </View>
+            <View style={{ flex: 1, marginHorizontal: 10 }}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                <Text style={{ color: "#f5f5f7", fontSize: 15, fontWeight: "600" }}>{item.name}</Text>
+                <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: status.bg, paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6, gap: 4 }}>
+                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: status.color }} />
+                  <Text style={{ color: status.color, fontSize: 11, fontWeight: "600" }}>{status.label}</Text>
+                </View>
+              </View>
+              <Text style={{ color: "#8e8e93", fontSize: 12, marginTop: 3 }}>{item.quantity} {item.unit}</Text>
+            </View>
+            <View style={{ alignItems: "flex-end" }}>
+              <Text style={{ color: "#f5f5f7", fontSize: 20, fontWeight: "600" }}>{item.quantity}</Text>
+              <Text style={{ color: "#8e8e93", fontSize: 12 }}>{item.unit}</Text>
+            </View>
           </View>
 
 
-        )}
+        );}}
       />
       </View>
     </SafeAreaView>
