@@ -1,8 +1,9 @@
-import { View, Text, FlatList, TextInput } from "react-native";
+import { View, Text, FlatList, TextInput, TouchableOpacity } from "react-native";
 import api from "../../src/services/api";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { router } from "expo-router";
 
 export default function Inventory() {
   const [items, setItems] = useState<{id: number, name: string, quantity: number, unit: string}[]>([]);
@@ -60,9 +61,10 @@ export default function Inventory() {
         ))}
       </View>
         <Text style={{ color: "#5a5a60", fontSize: 12, marginTop: 10  }}>ALL ITEMS</Text>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flex: 1 }}>
       <FlatList
         style={{ flex: 1, marginTop: 10 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
         data={filteredItems}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => {
@@ -96,6 +98,11 @@ export default function Inventory() {
         );}}
       />
       </View>
+      <TouchableOpacity
+        style={{ position: "absolute", bottom: 30, right: 20, backgroundColor: "#0d9488", paddingHorizontal: 20, paddingVertical: 14, borderRadius: 30 }}
+        onPress={() => router.push("/add_item")}>
+        <Text style={{ color: "white", fontSize: 16, fontWeight: "600" }}>+ Add item</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
