@@ -1,19 +1,21 @@
 import { View, Text, FlatList, TextInput, TouchableOpacity } from "react-native";
 import api from "../../src/services/api";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/ui/icon-symbol";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 export default function Inventory() {
   const [items, setItems] = useState<{id: number, name: string, quantity: number, unit: string}[]>([]);
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    api.get("/items")
-      .then(res => setItems(res.data))
-      .catch(err => console.error("Fetch items error:", err.message));
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      api.get("/items")
+        .then(res => setItems(res.data))
+        .catch(err => console.error("Fetch items error:", err.message));
+    }, [])
+  );
 
   const filteredItems = items.filter(item =>
     item.name.toLowerCase().includes(input.toLowerCase())
