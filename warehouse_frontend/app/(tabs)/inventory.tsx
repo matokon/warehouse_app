@@ -76,7 +76,7 @@ export default function Inventory() {
             ? { label: "LOW", color: "#f59e0b", bg: "#2a1f00" }
             : { label: "IN STOCK", color: "#0d9488", bg: "#0a1f1e" }
           return (
-          <Pressable onPress={() => {router.push({ pathname: `/item/${item.id}` as any, params: { name: item.name, quantity: item.quantity } })}}style={{ height: 81.5, flexDirection: "row", alignItems: "center", backgroundColor: "#141416", borderWidth: 1, borderColor: "#1f1f24", paddingHorizontal: 14, borderRadius: 14, marginVertical: 3 }}>
+          <Pressable onPress={() => {router.push({ pathname: `/item/${item.id}` as any, params: { name: item.name, quantity: item.quantity, id: item.id } })}}style={{ height: 81.5, flexDirection: "row", alignItems: "center", backgroundColor: "#141416", borderWidth: 1, borderColor: "#1f1f24", paddingHorizontal: 14, borderRadius: 14, marginVertical: 3 }}>
             <View style={{ width: 44, height: 44, backgroundColor: "#1e1e22", borderRadius: 10, overflow: "hidden", alignItems: "center", justifyContent: "center" }}>
               <IconSymbol size={20} name="shippingbox" color="#888" />
             </View>

@@ -3,16 +3,28 @@ import { useRouter, Stack, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useState } from "react";
+import api from "@/src/services/api";
 
 
 export default function AddItem() {
   const router = useRouter();
-  const { quantity, name } = useLocalSearchParams()
+  const { quantity, name, id} = useLocalSearchParams()
+  const [currentQuantity, setCurrentQuantity] = useState(Number(quantity))
   const status = Number(quantity) === 0                                                                                                                 
     ? { label: "OUT", color: "#ef4444", bg: "#2a1010" }
     : Number(quantity) < 10                                                                                                                             
     ? { label: "LOW", color: "#f59e0b", bg: "#2a1f00" }                                                                                               
     : { label: "IN STOCK", color: "#0d9488", bg: "#0a1f1e" } 
+
+  const changeQuantity = (amount: number) => {
+    const newQuantity = currentQuantity + amount
+    setCurrentQuantity(newQuantity)
+    updateQuantity(newQuantity)
+  }
+
+  const updateQuantity = async (newQuantity: number) => {
+    await api.patch(`/items/${id}`, { item: { quantity: newQuantity } })
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#0a0a0a" , alignItems: "center"}}>
@@ -34,6 +46,23 @@ export default function AddItem() {
                 <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: status.color, margin: 4 }} /> 
                 <Text style={{ color: status.color, fontWeight: 600, textAlign: "center" }}>{status.label}</Text>
             </View>
+        </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: "#141416", borderRadius: 18, borderColor: "#1f1f24", borderWidth: 1, paddingVertical: 20, paddingHorizontal: 16, marginTop: 12 }}>
+            <Pressable onPress={() => changeQuantity(-1)}
+            style={({ pressed }) => ({ width: 36, height: 36, borderRadius: 10, backgroundColor: pressed ? "#2a2a35" : "#1f1f24", alignItems: "center", justifyContent: "center", opacity: pressed ? 0.7 : 1 })}>
+              <Text style={{ color: "#f5f5f7", fontSize: 20, fontWeight: "600" }}>−</Text>
+            </Pressable>
+            <Text style={{ color: "#f5f5f7", fontSize: 48, fontWeight: "700" }}>{currentQuantity}</Text>
+            <Pressable onPress={() => changeQuantity(+1)}
+            style={({ pressed }) => ({ width: 36, height: 36, borderRadius: 10, backgroundColor: pressed ? "#2a2a35" : "#1f1f24", alignItems: "center", justifyContent: "center", opacity: pressed ? 0.7 : 1 })}>
+              <Text style={{ color: "#f5f5f7", fontSize: 20, fontWeight: "600" }}>+</Text>
+            </Pressable>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+            <Pressable onPress={() => changeQuantity(-10)}
+                style={{ backgroundColor: "#1e1e22", borderRadius: 10, }}>
+                <Text style={{ fontSize: 13, fontWeight: 600, color: "#f5f5f7" }}>-10</Text>
+            </Pressable>
         </View>
       </View>
     </SafeAreaView>
