@@ -8,7 +8,7 @@ import api from "@/src/services/api";
 
 export default function AddItem() {
   const router = useRouter();
-  const { quantity, name, id} = useLocalSearchParams()
+  const { quantity, name, id, unit } = useLocalSearchParams()
   const [currentQuantity, setCurrentQuantity] = useState(Number(quantity))
   const status = Number(quantity) === 0                                                                                                                 
     ? { label: "OUT", color: "#ef4444", bg: "#2a1010" }
@@ -41,10 +41,10 @@ export default function AddItem() {
       </View>
         <View style={{ width: 350, height: 199, backgroundColor: "#141416", borderRadius: 18, paddingBottom: 16, paddingTop: 18, paddingHorizontal: 16, marginTop: 16 }}>
         <View style={{ width: 301, height: 19, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-            <Text style={{ color: "#5a5a60", fontSize: 11, fontWeight: 600 }}>ON HAND</Text>
+            <Text style={{ color: "#5a5a60", fontSize: 11, fontWeight: "600" }}>ON HAND</Text>
             <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: status.bg, borderRadius: 6, paddingHorizontal: 8, height: 19, justifyContent: "center" }}>
                 <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: status.color, margin: 4 }} /> 
-                <Text style={{ color: status.color, fontWeight: 600, textAlign: "center" }}>{status.label}</Text>
+                <Text style={{ color: status.color, fontWeight: "600", textAlign: "center" }}>{status.label}</Text>
             </View>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: "#141416", borderRadius: 18, borderColor: "#1f1f24", borderWidth: 1, paddingVertical: 20, paddingHorizontal: 16, marginTop: 12 }}>
@@ -58,12 +58,28 @@ export default function AddItem() {
               <Text style={{ color: "#f5f5f7", fontSize: 20, fontWeight: "600" }}>+</Text>
             </Pressable>
         </View>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between"}}>
             <Pressable onPress={() => changeQuantity(-10)}
-                style={{ backgroundColor: "#1e1e22", borderRadius: 10, }}>
-                <Text style={{ fontSize: 13, fontWeight: 600, color: "#f5f5f7" }}>-10</Text>
+                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>-10</Text>
+            </Pressable>
+            <Pressable onPress={() => changeQuantity(-5)}
+                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>-5</Text>
+            </Pressable>
+            <Pressable onPress={() => changeQuantity(+5)}
+                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+5</Text>
+            </Pressable>
+            <Pressable onPress={() => changeQuantity(+10)}
+                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+10</Text>
             </Pressable>
         </View>
+      </View>
+      <View style={{ backgroundColor: "#141416", marginTop: 10, borderRadius: 12, borderWidth: 1, width: 350, height: 64, paddingVertical: 12, paddingHorizontal: 14 }}>
+          <Text style={{ color: "#5a5a60", marginBottom: 6, fontSize: 10, fontWeight: "600" }}>UNIT</Text>
+          <Text style={{ color: "#f5f5f7", fontSize: 15, fontWeight: "500"}}>{unit}</Text>
       </View>
     </SafeAreaView>
   );
