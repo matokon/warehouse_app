@@ -26,6 +26,16 @@ export default function AddItem() {
     await api.patch(`/items/${id}`, { item: { quantity: newQuantity } })
   }
 
+  const deleteItem = () => {
+    Alert.alert("Usuń przedmiot", `Czy na pewno chcesz usunąć "${name}"?`, [
+      { text: "Anuluj", style: "cancel" },
+      { text: "Usuń", style: "destructive", onPress: async () => {
+        await api.delete(`/items/${id}`)
+        router.replace("/(tabs)/inventory")
+      }},
+    ])
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#0a0a0a" , alignItems: "center"}}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -60,20 +70,20 @@ export default function AddItem() {
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between"}}>
             <Pressable onPress={() => changeQuantity(-10)}
-                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
+                style={({ pressed }) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24" , borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
                 <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>-10</Text>
             </Pressable>
             <Pressable onPress={() => changeQuantity(-5)}
-                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
+                style={({ pressed }) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24", borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
                 <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>-5</Text>
             </Pressable>
             <Pressable onPress={() => changeQuantity(+5)}
-                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
-                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+5</Text>
+                style={({ pressed }) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24", borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#14b8a6" }}>+5</Text>
             </Pressable>
             <Pressable onPress={() => changeQuantity(+10)}
-                style={{ backgroundColor: "#1e1e22", borderRadius: 10, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" }}>
-                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+10</Text>
+                style={({pressed}) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24", borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#14b8a6" }}>+10</Text>
             </Pressable>
         </View>
       </View>
@@ -81,6 +91,12 @@ export default function AddItem() {
           <Text style={{ color: "#5a5a60", marginBottom: 6, fontSize: 10, fontWeight: "600" }}>UNIT</Text>
           <Text style={{ color: "#f5f5f7", fontSize: 15, fontWeight: "500"}}>{unit}</Text>
       </View>
+      <View style={{ flex: 1 }} />
+      <Pressable onPress={deleteItem}
+                style={{ backgroundColor: "#221012", borderRadius: 14, borderColor: "#3a1820", borderWidth: 1, paddingVertical: 14, flexDirection: "row", paddingHorizontal: 28, marginTop: 12, marginBottom: 10, alignItems: "center", justifyContent: "center", width: 350, gap: 8 }}>
+                <IconSymbol size={18} name="trash" color="#ef4444" />
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#ef4444" }}>Delete item</Text>
+      </Pressable>
     </SafeAreaView>
-  );
+  )
 }
