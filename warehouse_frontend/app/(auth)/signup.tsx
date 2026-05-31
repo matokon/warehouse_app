@@ -38,9 +38,6 @@ export default function Signup() {
       </Pressable>
 
       <View style={{ paddingHorizontal: 24, paddingTop: 8 }}>
-        <View style={{ width: 48, height: 48, backgroundColor: "#0d9488", borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: 24 }}>
-          <IconSymbol size={26} name="shippingbox" color="white" />
-        </View>
 
         <Text style={{ color: "#f5f5f7", fontSize: 28, fontWeight: "700", marginBottom: 6 }}>Welcome back</Text>
         <Text style={{ color: "#5a5a60", fontSize: 14, marginBottom: 32 }}>Set up an account to start tracking inventory</Text>
@@ -61,7 +58,7 @@ export default function Signup() {
         <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1e1e22", borderRadius: 10, borderWidth: 1, borderColor: "#1f1f24", paddingHorizontal: 14, height: 48, marginBottom: 16 }}>
           <IconSymbol size={16} name="envelope" color="#5a5a60" />
           <TextInput
-            placeholder="you@company.com"
+            placeholder="johnpork@gmail.com"
             placeholderTextColor="#3a3a40"
             value={email}
             onChangeText={setEmail}

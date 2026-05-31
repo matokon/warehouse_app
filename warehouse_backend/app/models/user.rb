@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :validatable,
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtDenylist
+  belongs_to :team, optional: true
 
-
+  has_many :owned_teams, class_name: "Team", foreign_key: "owner_id", dependent: :destroy
 end
