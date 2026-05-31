@@ -74,15 +74,15 @@ export default function Signin() {
         </View>
 
         <Pressable style={{ alignSelf: "flex-end", marginBottom: 24 }}>
-          <Text style={{ color: "#14b8a6", fontSize: 13, fontWeight: "500" }}>Forgot password?</Text>
+          <Text style={{ color: "#f5f5f7", fontSize: 13, fontWeight: "500" }}>Forgot password?</Text>
         </Pressable>
 
         <Pressable
           onPress={handleSignIn}
           disabled={loading}
-          style={{ backgroundColor: "#0d9488", borderRadius: 12, height: 50, alignItems: "center", justifyContent: "center" }}
+          style={{ backgroundColor: "#f5f5f7", borderRadius: 12, height: 50, alignItems: "center", justifyContent: "center" }}
         >
-          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>Sign In</Text>
+          <Text style={{ color: "#0a0a0a", fontSize: 16, fontWeight: "600" }}>Sign In</Text>
         </Pressable>
       </View>
 
@@ -90,7 +90,7 @@ export default function Signin() {
       <View style={{ alignItems: "center", paddingBottom: 32 }}>
         <Text style={{ color: "#5a5a60", fontSize: 14 }}>
           Don't have an account?{" "}
-          <Text onPress={() => router.push("/signup")} style={{ color: "#14b8a6", fontWeight: "600" }}>Sign up</Text>
+          <Text onPress={() => router.push("/signup")} style={{ color: "#f5f5f7", fontWeight: "600" }}>Sign up</Text>
         </Text>
       </View>
     </SafeAreaView>

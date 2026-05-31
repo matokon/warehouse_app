@@ -14,7 +14,7 @@ export default function AddItem() {
     ? { label: "OUT", color: "#ef4444", bg: "#2a1010" }
     : Number(quantity) < 10                                                                                                                             
     ? { label: "LOW", color: "#f59e0b", bg: "#2a1f00" }                                                                                               
-    : { label: "IN STOCK", color: "#0d9488", bg: "#0a1f1e" } 
+    : { label: "IN STOCK", color: "#f5f5f7", bg: "#1f1f24" }
 
   const changeQuantity = (amount: number) => {
     const newQuantity = currentQuantity + amount
@@ -45,7 +45,7 @@ export default function AddItem() {
           <IconSymbol size={20} name="chevron.left" color="white" />
         </Pressable>
         <View style={{ flex: 1, marginLeft: 12 }}>
-          <Text style={{ color: "#14b8a6", fontSize: 11, fontWeight: "600", marginBottom: 2 }}>INVENTORY</Text>
+          <Text style={{ color: "#f5f5f7", fontSize: 11, fontWeight: "600", marginBottom: 2 }}>INVENTORY</Text>
           <Text style={{ color: "#f5f5f7", fontSize: 20, fontWeight: "700" }}>{name}</Text>
       </View>
       </View>
@@ -79,11 +79,11 @@ export default function AddItem() {
             </Pressable>
             <Pressable onPress={() => changeQuantity(+5)}
                 style={({ pressed }) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24", borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
-                <Text style={{ fontSize: 13, fontWeight: "600", color: "#14b8a6" }}>+5</Text>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+5</Text>
             </Pressable>
             <Pressable onPress={() => changeQuantity(+10)}
                 style={({pressed}) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24", borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
-                <Text style={{ fontSize: 13, fontWeight: "600", color: "#14b8a6" }}>+10</Text>
+                <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+10</Text>
             </Pressable>
         </View>
       </View>

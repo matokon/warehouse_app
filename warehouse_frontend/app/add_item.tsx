@@ -37,13 +37,13 @@ export default function AddItem() {
           <IconSymbol size={20} name="xmark" color="white" />
         </Pressable>
         <View style={{ flex: 1, marginLeft: 12 }}>
-          <Text style={{ color: "#14b8a6", fontSize: 11, fontWeight: "600", marginBottom: 2 }}>INVENTORY</Text>
+          <Text style={{ color: "#f5f5f7", fontSize: 11, fontWeight: "600", marginBottom: 2 }}>INVENTORY</Text>
           <Text style={{ color: "#f5f5f7", fontSize: 20, fontWeight: "700" }}>New item</Text>
         </View>
         <Pressable
           onPress={handleSave}
           style={({ pressed }) => ({
-            backgroundColor: pressed ? "#0a7a70" : "#0d9488",
+            backgroundColor: pressed ? "#d4d4d8" : "#f5f5f7",
             borderRadius: 10,
             width: 56,
             height: 36,
@@ -51,7 +51,7 @@ export default function AddItem() {
             justifyContent: "center",
             opacity: pressed ? 0.8 : 1,
           })}>
-          <Text style={{ fontSize: 14, color: "#ffffff", fontWeight: "600" }}>Save</Text>
+          <Text style={{ fontSize: 14, color: "#0a0a0a", fontWeight: "600" }}>Save</Text>
         </Pressable>
       </View>
 
@@ -86,7 +86,7 @@ export default function AddItem() {
                     onPress={() => { setUnit(u); setShowUnitPicker(false); }}
                     style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: "#1f1f24" }}>
                     <Text style={{ color: "white", fontSize: 15 }}>{u}</Text>
-                    {unit === u && <IconSymbol size={14} name="checkmark" color="#0d9488" />}
+                    {unit === u && <IconSymbol size={14} name="checkmark" color="#f5f5f7" />}
                   </Pressable>
                 ))}
               </View>

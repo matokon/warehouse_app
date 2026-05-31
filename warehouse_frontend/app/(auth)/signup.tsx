@@ -87,9 +87,9 @@ export default function Signup() {
         <Pressable
           onPress={handleSignUp}
           disabled={loading}
-          style={{ backgroundColor: "#0d9488", borderRadius: 12, height: 50, alignItems: "center", justifyContent: "center" }}
+          style={{ backgroundColor: "#f5f5f7", borderRadius: 12, height: 50, alignItems: "center", justifyContent: "center" }}
         >
-          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>Create Account</Text>
+          <Text style={{ color: "#0a0a0a", fontSize: 16, fontWeight: "600" }}>Create Account</Text>
         </Pressable>
       </View>
 
@@ -97,7 +97,7 @@ export default function Signup() {
       <View style={{ alignItems: "center", paddingBottom: 32 }}>
         <Text style={{ color: "#5a5a60", fontSize: 14 }}>
           Already have an account?{" "}
-          <Text onPress={() => router.push("/signin")} style={{ color: "#14b8a6", fontWeight: "600" }}>Sign in</Text>
+          <Text onPress={() => router.push("/signin")} style={{ color: "#f5f5f7", fontWeight: "600" }}>Sign in</Text>
         </Text>
       </View>
     </SafeAreaView>
