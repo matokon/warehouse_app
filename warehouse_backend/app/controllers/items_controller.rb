@@ -1,9 +1,10 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_team
   before_action :set_item, only: %i[show update destroy]
 
   def index
-    render json: Item.order(:created_at)
+    render json: current_user.team.items
   end
 
   def show
@@ -11,7 +12,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    item = Item.create!(item_params)
+    item = current_user.team.items.create!(item_params)
     render json: item, status: :created
   end
 
@@ -28,7 +29,13 @@ class ItemsController < ApplicationController
   private
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = current_user.team.items.find(params[:id])
+  end
+
+  def require_team
+    unless current_user.team
+      render json: {error: "You had to join a team first."}, status: :forbidden
+    end 
   end
 
   def item_params

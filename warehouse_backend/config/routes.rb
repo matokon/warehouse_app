@@ -12,5 +12,9 @@ Rails.application.routes.draw do
                sessions: "users/sessions"
              }
 
+  resources :teams, only: [:create]
+  post "teams/join", to: "teams#join"
+  delete "teams/leave", to: "teams#leave"
+
   resources :items
 end
