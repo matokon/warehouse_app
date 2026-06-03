@@ -19,7 +19,7 @@ module Users
     end
 
     def user_payload(user)
-      { id: user.id, email: user.email }
+      { id: user.id, email: user.email, team_id: user.team_id }
     end
   end
 end

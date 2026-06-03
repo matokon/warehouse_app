@@ -24,7 +24,12 @@ export default function Signin() {
       });
       const token = response.headers['authorization'];
       await SecureStore.setItemAsync('jwt_token', token);
-      router.replace("/(tabs)/inventory");
+      const team_id = response.data.user.team_id
+      if (team_id){
+        router.replace("/(tabs)/inventory");
+      } else {
+        router.replace("/jointeam");
+      }
     } catch (error: any) {
       console.error("Log error:", error.response?.data);
       Alert.alert("Error", "Incorrect email or password");
