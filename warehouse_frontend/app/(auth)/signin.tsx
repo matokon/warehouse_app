@@ -26,8 +26,10 @@ export default function Signin() {
       await SecureStore.setItemAsync('jwt_token', token);
       const team_id = response.data.user.team_id
       if (team_id){
+        await SecureStore.setItemAsync('team_id', String(team_id));
         router.replace("/(tabs)/inventory");
       } else {
+        await SecureStore.deleteItemAsync('team_id');
         router.replace("/jointeam");
       }
     } catch (error: any) {
