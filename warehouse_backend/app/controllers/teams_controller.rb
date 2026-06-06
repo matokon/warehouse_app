@@ -1,6 +1,10 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    render json: current_user.team
+  end
+
   def create
     team = Team.create!(
         name: params[:name],

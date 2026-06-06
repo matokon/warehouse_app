@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :teams, only: [:create]
   post "teams/join", to: "teams#join"
+  get "teams/me", to: "teams#show"
   delete "teams/leave", to: "teams#leave"
 
   resources :items

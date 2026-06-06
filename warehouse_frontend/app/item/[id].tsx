@@ -14,7 +14,7 @@ export default function AddItem() {
     ? { label: "OUT", color: "#ef4444", bg: "#2a1010" }
     : Number(quantity) < 10                                                                                                                             
     ? { label: "LOW", color: "#f59e0b", bg: "#2a1f00" }                                                                                               
-    : { label: "IN STOCK", color: "#f5f5f7", bg: "#1f1f24" }
+    : { label: "IN STOCK", color: "#0d9488", bg: "#0a1f1e" }
 
   const changeQuantity = (amount: number) => {
     const newQuantity = currentQuantity + amount
