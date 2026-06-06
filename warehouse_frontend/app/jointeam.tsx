@@ -8,9 +8,12 @@ import * as SecureStore from 'expo-secure-store';
 import api from '../src/services/api';
 
 export default function jointeam() {
-  const [visible, setVisible] = useState(false);
+  const [joinVisible, setJoinVisible] = useState(false);
+  const [createVisible, setCreateVisible] = useState(false);
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('');
+
 
   const handleJoin = async () => {
     if (!code) return;
@@ -26,13 +29,27 @@ export default function jointeam() {
     }
   }
 
+  const handleCreate = async () => {
+    if (!name) return;
+    setLoading(true);
+    try {
+      const res = await api.post('/teams', { name: name });
+      await SecureStore.setItemAsync('team_id', String(res.data.id));
+      router.replace('/(tabs)/inventory');
+    } catch (e) {
+      Alert.alert('Error', 'Could not create team');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start', paddingHorizontal: 24, paddingVertical: 55}}>
         <Text style={{ color: '#fff', fontSize: 11, fontWeight: 600, paddingBottom: 10}}>Set up your team</Text>
         <Text style={{ color: '#fff', fontSize: 28, fontWeight: 700, paddingBottom: 5 }}>Work with your crew</Text>
         <Text style={{ color: '#8e8e93', fontSize: 15, fontWeight: 400, paddingBottom: 35}}>Share one inventory across everyone on the floor.</Text>
         <Pressable 
-        onPress={() => router.replace()} 
+        onPress={() => setCreateVisible(true)}
         style={{ 
           flexDirection: 'row',
           alignItems: 'center',
@@ -54,7 +71,7 @@ export default function jointeam() {
           <IconSymbol size={20} name="chevron.right" color="#5a5a60" />
         </Pressable>
         <Pressable 
-        onPress={() => setVisible(true)} 
+        onPress={() => setJoinVisible(true)}
         style={{ 
           flexDirection: 'row',
           alignItems: 'center',
@@ -78,13 +95,10 @@ export default function jointeam() {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={visible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setVisible(!visible);
-          }}>
+          visible={joinVisible}
+          onRequestClose={() => setJoinVisible(false)}>
           <Pressable
-              onPress={() => setVisible(false)}
+              onPress={() => setJoinVisible(false)}
               style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', alignItems: 'center' }}
             >
               <Pressable
@@ -109,6 +123,39 @@ export default function jointeam() {
                   style={{ backgroundColor: '#f5f5f7', borderRadius: 12, height: 50, alignItems: 'center', justifyContent: 'center' }}
                 >
                   {loading ? <ActivityIndicator /> : <Text style={{ fontWeight: '600' }}>Join</Text>}
+                </Pressable>
+              </Pressable>
+            </Pressable>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={createVisible}
+          onRequestClose={() => setCreateVisible(false)}>
+          <Pressable
+              onPress={() => setCreateVisible(false)}
+              style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', alignItems: 'center' }}
+            >
+              <Pressable
+                onPress={() => {}}
+                style={{ width: '85%', backgroundColor: '#1e1e22', borderRadius: 16, padding: 24 }}
+              >
+                <Text style={{ color: '#fff', fontSize: 20, fontWeight: '700', marginBottom: 12 }}>Create a team</Text>
+
+                <TextInput
+                  value={name}
+                  onChangeText={setName}
+                  placeholder="Name of team"
+                  placeholderTextColor="#5a5a60"
+                  style={{ color: '#fff', backgroundColor: '#0a0a0a', borderRadius: 10, padding: 14, marginBottom: 16 }}
+                />
+
+                <Pressable
+                  onPress={handleCreate}
+                  disabled={loading}
+                  style={{ backgroundColor: '#f5f5f7', borderRadius: 12, height: 50, alignItems: 'center', justifyContent: 'center' }}
+                >
+                  {loading ? <ActivityIndicator /> : <Text style={{ fontWeight: '600' }}>Create</Text>}
                 </Pressable>
               </Pressable>
             </Pressable>
