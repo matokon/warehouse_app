@@ -5,6 +5,6 @@ class Activity < ApplicationRecord
   enum :action, received: 0, picked: 1, counted: 2
 
   def user_name
-      user.email
+      user.name
   end
 end
