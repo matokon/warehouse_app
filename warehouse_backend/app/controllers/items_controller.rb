@@ -13,11 +13,26 @@ class ItemsController < ApplicationController
 
   def create
     item = current_user.team.items.create!(item_params)
+    Activity.create!(
+      action: :received,
+      quantity_change: item.quantity,
+      item_name: item.name,
+      user_id: current_user.id,
+      team_id: current_user.team_id
+    )
     render json: item, status: :created
   end
 
   def update
+    old_quantity = @item.quantity
     @item.update!(item_params)
+     Activity.create!(
+      action: :picked,
+      quantity_change: @item.quantity - old_quantity,
+      item_name: @item.name,
+      user_id: current_user.id,
+      team_id: current_user.team_id
+    )
     render json: @item
   end
 

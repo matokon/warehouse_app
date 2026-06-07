@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   delete "teams/leave", to: "teams#leave"
 
   resources :items
+  resources :activities, only: [:index]
 end

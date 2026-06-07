@@ -11,4 +11,6 @@ class User < ApplicationRecord
   belongs_to :team, optional: true
 
   has_many :owned_teams, class_name: "Team", foreign_key: "owner_id", dependent: :destroy
+  has_many :activities
+  
 end

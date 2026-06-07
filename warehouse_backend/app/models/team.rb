@@ -5,6 +5,8 @@ class Team < ApplicationRecord
 
   has_many :members, class_name: "User", dependent: :nullify
   has_many :items, dependent: :destroy
+  has_many :activities, dependent: :destroy
+
 
   validates :name, presence: true
   validates :access_code, presence: true, uniqueness: true
