@@ -12,7 +12,7 @@ export default function Index() {
         return;
       }
       const teamId = await SecureStore.getItemAsync('team_id');
-      router.replace(teamId ? '/(tabs)/inventory' : '/jointeam');
+      router.replace(teamId ? '/(tabs)/inventory' : '/join-team');
     };
 
     decideRoute();

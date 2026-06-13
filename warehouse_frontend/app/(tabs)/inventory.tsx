@@ -102,7 +102,7 @@ export default function Inventory() {
       </View>
       <TouchableOpacity
         style={{ position: "absolute", bottom: 30, right: 20, backgroundColor: "#f5f5f7", paddingHorizontal: 20, paddingVertical: 14, borderRadius: 30 }}
-        onPress={() => router.push("/add_item")}>
+        onPress={() => router.push("/add-item")}>
         <Text style={{ color: "#0a0a0a", fontSize: 16, fontWeight: "600" }}>+ Add item</Text>
       </TouchableOpacity>
     </SafeAreaView>

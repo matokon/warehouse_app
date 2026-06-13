@@ -28,7 +28,7 @@
               console.error("Leave error:", error.response?.status, error.response?.data);
             } finally {
               await SecureStore.deleteItemAsync("team_id");
-              router.replace("/jointeam");
+              router.replace("/join-team");
             }
           }},
         ]);

@@ -7,7 +7,7 @@ import { Modal, TextInput, ActivityIndicator, Alert } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import api from '../src/services/api';
 
-export default function jointeam() {
+export default function JoinTeam() {
   const [joinVisible, setJoinVisible] = useState(false);
   const [createVisible, setCreateVisible] = useState(false);
   const [code, setCode] = useState('');

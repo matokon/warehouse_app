@@ -30,7 +30,7 @@ export default function Signin() {
         router.replace("/(tabs)/inventory");
       } else {
         await SecureStore.deleteItemAsync('team_id');
-        router.replace("/jointeam");
+        router.replace("/join-team");
       }
     } catch (error: any) {
       console.error("Log error:", error.response?.data);

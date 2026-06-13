@@ -6,7 +6,7 @@ import { useState } from "react";
 import api from "@/src/services/api";
 
 
-export default function AddItem() {
+export default function ItemDetail() {
   const router = useRouter();
   const { quantity, name, id, unit } = useLocalSearchParams()
   const [currentQuantity, setCurrentQuantity] = useState(Number(quantity))
