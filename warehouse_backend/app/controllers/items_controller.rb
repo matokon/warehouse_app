@@ -14,8 +14,8 @@ class ItemsController < ApplicationController
   def create
     item = current_user.team.items.create!(item_params)
     Activity.create!(
-      action: :received,
-      quantity_change: item.quantity,
+      action: :created,
+      quantity_change: -item.quantity,
       item_name: item.name,
       user_id: current_user.id,
       team_id: current_user.team_id
@@ -37,6 +37,13 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    Activity.create!(
+      action: :deleted,
+      quantity_change: -@item.quantity,
+      item_name: @item.name,
+      user_id: current_user.id,
+      team_id: current_user.team_id
+    )
     @item.destroy!
     head :no_content
   end

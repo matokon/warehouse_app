@@ -25,7 +25,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
       }
       return Object.entries(groups).map(([title, data]) => ({ title, data }));
     }
-                                             
+    function getIconName(item: ActivityItem){
+      return item.action === "created" ? "plus"
+        : item.action === "deleted" ? "trash"
+        : item.quantity_change > 0  ? "arrow.up"
+        : "arrow.down"
+    }
+                          
     export default function Activity() {    
     const [sections, setSections] = useState<{ title: string; data: ActivityItem[] }[]>([]);
 
@@ -46,21 +52,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
           sections={sections}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-          <View style={{ paddingVertical: 8}}>
-            <View style={{  backgroundColor: "#141416" }}>
-            <View style={{  }}>
-              <Text style={{ color: "#f5f5f7", fontSize: 14, fontWeight: "600" }}>
-                {item.item_name}
-              </Text>
+          <View style={{ paddingVertical: 8, flexDirection: "row", alignItems: "center"}}>
+            <View>
+              <SymbolView name={getIconName(item)} tintColor="#5a5a60" size={16} />
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 3 }}>
-              <Text style={{ color: "#5a5a60", fontSize: 12 }}>
-                {new Date(item.created_at).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" })}
-              </Text>
-              <SymbolView name="circlebadge.fill" tintColor="#5a5a60" size={3} />
-              <Text style={{ color: "#5a5a60", fontSize: 12, flex: 1 }} numberOfLines={1}>
-                {item.action} by {item.user_name}
-              </Text>
+            <View style={{  backgroundColor: "#141416", flex: 1}}>
+                <Text style={{ color: "#f5f5f7", fontSize: 14, fontWeight: "600" }}>
+                  {item.item_name}
+                </Text>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 3 }}>
+                <Text style={{ color: "#5a5a60", fontSize: 12 }}>
+                  {new Date(item.created_at).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" })}
+                </Text>
+                <SymbolView name="circlebadge.fill" tintColor="#5a5a60" size={3} />
+                <Text style={{ color: "#5a5a60", fontSize: 12, flex: 1 }} numberOfLines={1}>
+                  {item.action} by {item.user_name}
+                </Text>
               </View>
             </View>
           </View>
