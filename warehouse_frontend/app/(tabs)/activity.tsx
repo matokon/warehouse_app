@@ -31,6 +31,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
         : item.quantity_change > 0  ? "arrow.up"
         : "arrow.down"
     }
+    function getSign(item: ActivityItem){
+      return item.quantity_change > 0 ? "+" : "-"
+    }
+    function getTone(item: ActivityItem){
+      if (item.action === "deleted") return { color: "#ef4444", bg: "#2a1010" }
+      if (item.quantity_change > 0) return { color: "#2dd4bf", bg: "#0a1f1e" }
+      if (item.quantity_change < 0) return { color: "#ef4444", bg: "#2a1010" }
+      return { color: "#5a5a60", bg: "#1f1f24" }
+    }
+    function getAmount(item: ActivityItem){
+      if (item.quantity_change === 0) return "0"
+      return getSign(item) + Math.abs(item.quantity_change)
+    }
                           
     export default function Activity() {    
     const [sections, setSections] = useState<{ title: string; data: ActivityItem[] }[]>([]);
@@ -44,23 +57,40 @@ import { SafeAreaView } from "react-native-safe-area-context";
     );
       
       return (
-        <SafeAreaView style={{ flex: 1, justifyContent: "flex-start", alignItems: "stretch", padding: 15 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#0a0a0a", justifyContent: "flex-start", alignItems: "stretch", padding: 15 }}>
           <Text style={{ color: "#5a5a60", fontSize: 11, fontWeight: "600"  }}>WAREHOUSE</Text>
-          <Text style={{ color: "#f5f5f7", fontSize: 28, fontWeight: "700"  }}>Activity</Text> 
+          <Text style={{ color: "#f5f5f7", fontSize: 28, fontWeight: "700"  }}>Activity</Text>
           <SectionList
           style={{ width: "100%" }}
           sections={sections}
           keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-          <View style={{ paddingVertical: 8, flexDirection: "row", alignItems: "center"}}>
-            <View>
-              <SymbolView name={getIconName(item)} tintColor="#5a5a60" size={16} />
+          renderItem={({ item, index, section }) => {
+          const tone = getTone(item)
+          const isFirst = index === 0
+          const isLast = index === section.data.length - 1
+          return (
+          <View style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 12,
+            backgroundColor: "#141416",
+            paddingVertical: 12,
+            paddingHorizontal: 12,
+            borderTopLeftRadius: isFirst ? 14 : 0,
+            borderTopRightRadius: isFirst ? 14 : 0,
+            borderBottomLeftRadius: isLast ? 14 : 0,
+            borderBottomRightRadius: isLast ? 14 : 0,
+            borderBottomWidth: isLast ? 0 : 1,
+            borderBottomColor: "#1f1f24",
+          }}>
+            <View style={{ width: 34, height: 34, borderRadius: 10, backgroundColor: tone.bg, alignItems: "center", justifyContent: "center" }}>
+              <SymbolView name={getIconName(item)} tintColor={tone.color} size={16} />
             </View>
-            <View style={{  backgroundColor: "#141416", flex: 1}}>
-                <Text style={{ color: "#f5f5f7", fontSize: 14, fontWeight: "600" }}>
+            <View style={{ flex: 1 }}>
+                <Text style={{ color: "#f5f5f7", fontSize: 14, fontWeight: "600", marginBottom: 3 }} numberOfLines={1}>
                   {item.item_name}
                 </Text>
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 3 }}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
                 <Text style={{ color: "#5a5a60", fontSize: 12 }}>
                   {new Date(item.created_at).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" })}
                 </Text>
@@ -70,10 +100,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
                 </Text>
               </View>
             </View>
+            <Text style={{ color: tone.color, fontSize: 15, fontWeight: "700", fontVariant: ["tabular-nums"] }}>
+              {getAmount(item)}
+            </Text>
           </View>
-          )}
+          )}}
           renderSectionHeader={({ section }) => (
-            <Text style={{ color: "#5a5a60", fontSize: 11, fontWeight: "600", paddingTop: 16, paddingBottom: 4 }}>
+            <Text style={{ color: "#5a5a60", fontSize: 11, fontWeight: "600", letterSpacing: 0.5, backgroundColor: "#0a0a0a", paddingTop: 20, paddingBottom: 8 }}>
               {section.title.toUpperCase()}
             </Text>
           )}
