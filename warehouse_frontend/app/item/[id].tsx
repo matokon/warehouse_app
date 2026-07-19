@@ -1,15 +1,18 @@
-import { View, Text, Pressable, TextInput, Alert } from "react-native";
+import { View, Text, Pressable, Alert } from "react-native";
 import { useRouter, Stack, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/ui/icon-symbol";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from "@/src/services/api";
 
 
 export default function ItemDetail() {
   const router = useRouter();
   const { quantity, name, id, unit } = useLocalSearchParams()
-  const [currentQuantity, setCurrentQuantity] = useState(Number(quantity))
+  const [ currentQuantity, setCurrentQuantity ] = useState(Number(quantity))
+  const quantityRef = useRef(Number(quantity))
+  const orginalQuantity = Number(quantity)
+
   const status = Number(quantity) === 0                                                                                                                 
     ? { label: "OUT", color: "#ef4444", bg: "#2a1010" }
     : Number(quantity) < 10                                                                                                                             
@@ -17,10 +20,19 @@ export default function ItemDetail() {
     : { label: "IN STOCK", color: "#0d9488", bg: "#0a1f1e" }
 
   const changeQuantity = (amount: number) => {
-    const newQuantity = currentQuantity + amount
+    let newQuantity = currentQuantity + amount
+    if(newQuantity < 0) { newQuantity = 0 }
     setCurrentQuantity(newQuantity)
-    updateQuantity(newQuantity)
+    quantityRef.current = newQuantity
   }
+
+  useEffect(() => {
+    return () => {
+      if ( quantityRef.current !== orginalQuantity){
+              updateQuantity(quantityRef.current)
+      }
+    }
+  }, [])
 
   const updateQuantity = async (newQuantity: number) => {
     await api.patch(`/items/${id}`, { item: { quantity: newQuantity } })
@@ -82,7 +94,7 @@ export default function ItemDetail() {
                 <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+5</Text>
             </Pressable>
             <Pressable onPress={() => changeQuantity(+10)}
-                style={({pressed}) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24", borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
+                style={({ pressed }) => ({ backgroundColor: pressed ? "#2a2a35" : "#1f1f24", borderRadius: 10, borderColor: "#2a2a30", borderWidth: 1, paddingVertical: 14, paddingHorizontal: 28, marginTop: 4, alignItems: "center", justifyContent: "center" })}>
                 <Text style={{ fontSize: 13, fontWeight: "600", color: "#f5f5f7" }}>+10</Text>
             </Pressable>
         </View>
